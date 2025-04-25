@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="site-title">Body Mass Index (BMI) Tracker</div>
+        <div class="tab-buttons">
+            <button class="tab-button" onclick="openTab('calculator')">Calculator</button>
+            <button class="tab-button" onclick="openTab('records')">Records</button>
+            <button class="tab-button" onclick="openTab('trends')">Trends</button>
+            <button class="tab-button" onclick="openTab('resources')">Resources</button>
+        </div>
+    </nav>
+
+    <section id="calculator" class="tab-content">
+        <div class="center-wrapper">
+            <h2>BMI Calculator</h2>
+            <p class="info-text">
+                BMI is calculated as Weight (kg) divided by Height (m) squared: <strong>BMI = weight (kg) / [height (m)]²</strong>.
+            </p>
+            <label>Measurement System:</label>
+            <select id="unit-system">
+                <option value="metric">Metric</option>
+                <option value="imperial">Imperial</option>
+            </select>
+            <div id="metric-inputs" class="input-group">
+                <div>
+                    <label for="height-cm">Height (centimeters):</label>
+                    <input type="number" id="height-cm" placeholder="Height (cm)">
+                </div>
+                <div>
+                    <label for="weight-kg">Weight (kilograms):</label>
+                    <input type="number" id="weight-kg" placeholder="Weight (kg)">
+                </div>
+            </div>
+            <div id="imperial-inputs" class="input-group hidden">
+                <label for="height-ft">Height (feet & inches):</label>
+                <div style="display: flex; gap: 0.5rem;">
+                    <input type="number" id="height-ft" placeholder="Height (ft)">
+                    <input type="number" id="height-in" placeholder="Height (in)">
+                </div>
+                <label for="weight-lb">Weight (pounds):</label>
+                <input type="number" id="weight-lb" placeholder="Weight (lb)">
+            </div>
+            <label for="bmi-date">Date:</label>
+            <input type="date" id="bmi-date">
+            <button onclick="computeAndRecordBMI()">Compute & Record BMI</button>
+            <p id="bmi-result"></p>
+        </div>
+    </section>
+
+    <section id="records" class="tab-content hidden">
+        <h2>BMI Records</h2>
+        <div class="bmi-standards horizontal">
+            <div class="standard-box">
+                <h4>WHO Standard</h4>
+                <p>
+                    Underweight: &lt; 18.5<br>
+                    Normal weight: 18.5–24.9<br>
+                    Overweight: 25.0–29.9<br>
+                    Obesity: ≥ 30.0
+                </p>
+            </div>
+            <div class="standard-box">
+                <h4>WHO Asia-Pacific Standard</h4>
+                <p>
+                    Underweight: &lt; 18.5<br>
+                    Normal weight: 18.5–22.9<br>
+                    Overweight: 23.0–24.9<br>
+                    Obesity: ≥ 25.0
+                </p>
+            </div>
+        </div>
+        <div class="filters">
+            <select id="sort-order" onchange="updateTable()">
+                <option value="asc">Date Ascending</option>
+                <option value="desc">Date Descending</option>
+            </select>
+            <select id="display-units" onchange="updateTable()">
+                <option value="metric">Metric</option>
+                <option value="imperial">Imperial</option>
+            </select>
+            <select id="bmi-standard" onchange="updateTable(); updateChart()">
+                <option value="who">WHO Standard</option>
+                <option value="asia">WHO Asia-Pacific Standard</option>
+            </select>
+        </div>
+        <table id="records-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Height</th>
+                    <th>Weight</th>
+                    <th>BMI</th>
+                    <th>Category</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+
+    <section id="trends" class="tab-content hidden">
+        <h2>Trends</h2>
+        <div class="chart-container">
+            <label>Weight Unit:</label>
+            <select id="weight-chart-unit" onchange="updateChart()">
+                <option value="metric">kg</option>
+                <option value="imperial">lb</option>
+            </select>
+            <canvas id="weight-chart"></canvas>
+        </div>
+        <div class="chart-info-row">
+            <div class="chart-container">
+                <label>BMI Standard:</label>
+                <select id="bmi-chart-standard" onchange="updateChart()">
+                    <option value="who">WHO Standard</option>
+                    <option value="asia">WHO Asia-Pacific Standard</option>
+                </select>
+                <canvas id="bmi-chart"></canvas>
+            </div>
+            <div class="bmi-standards">
+                <h3>BMI Categories</h3>
+                <p><strong>WHO Standard:</strong><br>
+                    Underweight: &lt; 18.5<br>
+                    Normal weight: 18.5–24.9<br>
+                    Overweight: 25.0–29.9<br>
+                    Obesity: ≥ 30.0
+                </p>
+                <p><strong>WHO Asia-Pacific Standard:</strong><br>
+                    Underweight: &lt; 18.5<br>
+                    Normal weight: 18.5–22.9<br>
+                    Overweight: 23.0–24.9<br>
+                    Obesity: ≥ 25.0
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="resources" class="tab-content hidden">
+        <h2>Resources</h2>
+        <p>Coming soon...</p>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.4.0"></script>
+    <script src="script.js"></script>
+</body>
+</html>

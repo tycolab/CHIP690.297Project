@@ -1,0 +1,170 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+    color: #333;
+}
+
+nav {
+    background: #004d99;
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #004d99;
+    padding: 1rem;
+    color: white;
+}
+
+.site-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-right: 1rem;
+    white-space: nowrap;
+}
+
+.tab-button {
+    background: white;
+    color: #004d99;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.tab-button:hover {
+    background-color: #cce0ff;
+}
+
+.center-wrapper {
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+}
+
+.info-text {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.bmi-standards {
+    margin: 1rem 0;
+    background: #eef5ff;
+    padding: 1rem;
+    border-left: 5px solid #004d99;
+    font-size: 0.95rem;
+}
+
+.bmi-standards.horizontal {
+    display: flex;
+    gap: 2rem;
+    margin: 1rem 0;
+    background: #eef5ff;
+    padding: 1rem;
+    border-left: 5px solid #004d99;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.standard-box {
+    min-width: 220px;
+    max-width: 300px;
+    flex: 1;
+}
+
+.bmi-standards h3 {
+    margin-top: 0;
+}
+
+.tab-content {
+    display: none;
+    padding: 2rem;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.input-group {
+    margin: 1rem 0;
+}
+
+.hidden {
+    display: none;
+}
+
+.filters {
+    margin-bottom: 1rem;
+}
+
+.filters select {
+    margin-right: 1rem;
+    padding: 0.3rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background: white;
+}
+
+th, td {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+th {
+    background-color: #e6f0ff;
+}
+
+.chart-container {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    padding: 1rem;
+}
+
+.chart-info-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: nowrap;
+}
+
+.chart-info-row .chart-container {
+    flex: 1 1 65%;
+}
+
+.chart-info-row .bmi-standards {
+    flex: 0 1 300px;
+    background: #eef5ff;
+    padding: 1rem;
+    border-left: 5px solid #004d99;
+    font-size: 0.95rem;
+    max-width: 300px;
+    min-width: 250px;
+}
+
+canvas {
+    width: 100% !important;
+    height: 300px !important;
+    max-height: 400px;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    box-sizing: border-box;
+}
