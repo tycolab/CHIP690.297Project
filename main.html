@@ -8,7 +8,7 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="site-title">Body Mass Index (BMI) Tracker</div>
+        <div class="site-title">Health Weight Tracker</div>
         <div class="tab-buttons">
             <button class="tab-button" onclick="openTab('calculator')">Calculator</button>
             <button class="tab-button" onclick="openTab('records')">Records</button>
@@ -21,35 +21,38 @@
         <div class="center-wrapper">
             <h2>BMI Calculator</h2>
             <p class="info-text">
+                Body mass index (BMI) is a measure of body fat based on height and weight that applies to adult men and women.
                 BMI is calculated as Weight (kg) divided by Height (m) squared: <strong>BMI = weight (kg) / [height (m)]²</strong>.
             </p>
-            <label>Measurement System:</label>
-            <select id="unit-system">
-                <option value="metric">Metric</option>
-                <option value="imperial">Imperial</option>
-            </select>
-            <div id="metric-inputs" class="input-group">
-                <div>
-                    <label for="height-cm">Height (centimeters):</label>
-                    <input type="number" id="height-cm" placeholder="Height (cm)">
+            <div class="bmi-box">
+                <label>Measurement System:</label>
+                <select id="unit-system">
+                    <option value="metric">Metric</option>
+                    <option value="imperial">Imperial</option>
+                </select>
+                <div id="metric-inputs" class="input-group">
+                    <div>
+                        <label for="height-cm">Height (centimeters):</label>
+                        <input type="number" id="height-cm" placeholder="Height (cm)">
+                    </div>
+                    <div>
+                        <label for="weight-kg">Weight (kilograms):</label>
+                        <input type="number" id="weight-kg" placeholder="Weight (kg)">
+                    </div>
                 </div>
-                <div>
-                    <label for="weight-kg">Weight (kilograms):</label>
-                    <input type="number" id="weight-kg" placeholder="Weight (kg)">
+                <div id="imperial-inputs" class="input-group hidden">
+                    <label for="height-ft">Height (feet & inches):</label>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <input type="number" id="height-ft" placeholder="Height (ft)">
+                        <input type="number" id="height-in" placeholder="Height (in)">
+                    </div>
+                    <label for="weight-lb">Weight (pounds):</label>
+                    <input type="number" id="weight-lb" placeholder="Weight (lb)">
                 </div>
+                <label for="bmi-date">Date:</label>
+                <input type="date" id="bmi-date">
+                <button onclick="computeAndRecordBMI()">Compute & Record BMI</button>
             </div>
-            <div id="imperial-inputs" class="input-group hidden">
-                <label for="height-ft">Height (feet & inches):</label>
-                <div style="display: flex; gap: 0.5rem;">
-                    <input type="number" id="height-ft" placeholder="Height (ft)">
-                    <input type="number" id="height-in" placeholder="Height (in)">
-                </div>
-                <label for="weight-lb">Weight (pounds):</label>
-                <input type="number" id="weight-lb" placeholder="Weight (lb)">
-            </div>
-            <label for="bmi-date">Date:</label>
-            <input type="date" id="bmi-date">
-            <button onclick="computeAndRecordBMI()">Compute & Record BMI</button>
             <p id="bmi-result"></p>
         </div>
     </section>
@@ -143,7 +146,185 @@
 
     <section id="resources" class="tab-content hidden">
         <h2>Resources</h2>
-        <p>Coming soon...</p>
+        <div class="resources-layout">
+            <nav class="resources-nav">
+                <ul>
+                    <li><a href="#healthy-weight">Healthy Weight Management</a></li>
+                    <li><a href="#nutrition-basics">Nutrition Basics</a></li>
+                    <li><a href="#calorie-goals">Setting Calorie Goals</a></li>
+                    <li><a href="#active-lifestyle">Building an Active Lifestyle</a></li>
+                    <li><a href="#bmr-calculator">BMR Calculator</a></li>
+                    <li><a href="#behavior-strategies">Behavior Strategies for Success</a></li>
+                    <li><a href="#references">References</a></li>
+                </ul>
+            </nav>
+    
+            <div class="resources-content">
+                <h3 id="healthy-weight">Healthy Weight Management</h3>
+                <p>Maintaining a healthy weight is an important part of overall health. It can help prevent and control many diseases and conditions. Achieving and maintaining a healthy weight requires a balanced approach, combining good nutrition, physical activity, and behavioral changes.</p>
+                <ul>
+                    <li>Focuses on lifelong habits, not temporary diets</li>
+                    <li>Encourages mindful eating and portion control</li>
+                    <li>Supports regular physical activity</li>
+                    <li>Promotes setting realistic goals and tracking progress</li>
+                    <li>Emphasizes building a supportive environment</li>
+                </ul>
+    
+                <h3 id="nutrition-basics">Nutrition Basics</h3>
+                <p>A healthy eating pattern supports both weight loss and long-term health. It should be rich in nutrients and low in added sugars, sodium, and unhealthy fats.</p>
+                <ul>
+                    <li><strong>Fruits and vegetables:</strong> Aim for half your plate to be fruits and vegetables.</li>
+                    <li><strong>Whole grains:</strong> Choose brown rice, whole-wheat bread, and oatmeal over refined grains.</li>
+                    <li><strong>Lean proteins:</strong> Incorporate fish, poultry, beans, and nuts.</li>
+                    <li><strong>Healthy fats:</strong> Use olive oil, avocado, and nuts instead of butter or lard.</li>
+                    <li><strong>Low-fat dairy:</strong> Choose milk, yogurt, and cheese with reduced fat.</li>
+                </ul>
+                <p><strong>Tips:</strong> Plan meals ahead, read nutrition labels, and prioritize water over sugary drinks.</p>
+    
+                <h3 id="calorie-goals">Setting Calorie Goals</h3>
+                <p>Calorie needs vary based on age, sex, weight, height, and activity level. A calorie deficit — eating fewer calories than your body uses — leads to weight loss.</p>
+                <ul>
+                    <li><strong>1,200–1,500 calories/day:</strong> Often effective for weight loss in women.</li>
+                    <li><strong>1,500–1,800 calories/day:</strong> Often effective for weight loss in men and active women.</li>
+                    <li>Very low-calorie diets (&lt;800 calories/day) should be supervised by a healthcare provider.</li>
+                </ul>
+    
+                <h3 id="active-lifestyle">Building an Active Lifestyle</h3>
+                <p>Physical activity helps maintain weight loss and provides additional health benefits like improved mood, better sleep, and stronger muscles.</p>
+                <p><strong>Goal:</strong> 150–300 minutes of moderate-intensity exercise per week or 75–150 minutes of vigorous-intensity exercise per week.</p>
+    
+                <strong>Examples of Moderate Activities:</strong>
+                <ul>
+                    <li>Brisk walking (2 miles in 30 minutes)</li>
+                    <li>Gardening</li>
+                    <li>Water aerobics</li>
+                    <li>Bicycling at a moderate pace (5 miles in 30 minutes)</li>
+                </ul>
+    
+                <strong>Examples of Vigorous Activities:</strong>
+                <ul>
+                    <li>Running (1.5 miles in 15 minutes)</li>
+                    <li>Swimming laps</li>
+                    <li>Jumping rope</li>
+                    <li>Playing basketball</li>
+                </ul>
+
+                <strong>Tips to Increase Daily Activity:</strong>
+                <ul>
+                    <li>Take the stairs instead of the elevator.</li>
+                    <li>Park farther away from entrances.</li>
+                    <li>Take short walking breaks during the day.</li>
+                    <li>Find activities you enjoy to stay motivated.</li>
+                </ul>
+
+                <h3 id="bmr-calculator">BMR Calculator</h3>
+                <p class="info-text">
+                    The Basal Metabolic Rate (BMR) is the amount of energy needed while resting in a temperate environment when the digestive system is inactive.
+                    It is the amount of energy your body needs to maintain basic life functions at rest, such as breathing, circulation, and cell production. 
+                    It represents the minimum number of calories your body needs to survive. 
+                    Your BMR is calculated based on your age, gender, height, and weight using the Mifflin-St Jeor Equation, which is widely considered one of the most accurate methods for estimating BMR.
+                </p>
+                <div class="center-wrapper bmr">
+                    <div class="bmr-box">
+                        <div class="form-row">
+                            <label>Measurement System:</label>
+                            <select id="bmr-unit-system">
+                                <option value="metric">Metric</option>
+                                <option value="imperial">Imperial</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <label>Age:</label>
+                            <input type="number" id="bmr-age" placeholder="Age">
+                        </div>
+                        <div class="form-row">
+                            <label>Biological Gender:</label>
+                            <select id="bmr-gender">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div id="bmr-metric-inputs" class="input-group">
+                            <div>
+                                <label for="bmr-height-cm">Height (centimeters):</label>
+                                <input type="number" id="bmr-height-cm" placeholder="Height (cm)">
+                            </div>
+                            <div>
+                                <label for="bmr-weight-kg">Weight (kilograms):</label>
+                                <input type="number" id="bmr-weight-kg" placeholder="Weight (kg)">
+                            </div>
+                        </div>
+
+                        <div id="bmr-imperial-inputs" class="input-group hidden">
+                            <label for="bmr-height-ft">Height (feet & inches):</label>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <input type="number" id="bmr-height-ft" placeholder="Height (ft)">
+                                <input type="number" id="bmr-height-in" placeholder="Height (in)">
+                            </div>
+                            <label for="bmr-weight-lb">Weight (pounds):</label>
+                            <input type="number" id="bmr-weight-lb" placeholder="Weight (lb)">
+                        </div>
+
+                        <button onclick="calculateBMR()">Calculate BMR</button>
+                    </div>
+                    <p id="bmr-result"></p>
+                    <div id="tdee-table-container" class="hidden">
+                        <h4>Adjusted Calorie Needs:</h4>
+                        <table id="tdee-table">
+                            <thead>
+                                <tr>
+                                    <th>Activity</th>
+                                    <th>Description</th>
+                                    <th>Calories Needed</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+    
+                <h3 id="behavior-strategies">Behavior Strategies for Success</h3>
+                <p>Changing habits takes time. These strategies can help you stay on track:</p>
+                <ul>
+                    <li>Track food intake and activity using an app or journal.</li>
+                    <li>Set SMART goals (Specific, Measurable, Achievable, Relevant, and Time-bound).</li>
+                    <li>Find a support system among family or friends.</li>
+                    <li>Anticipate setbacks and plan how you'll respond to challenges.</li>
+                </ul>
+                <p>Even small changes can lead to big results over time. Focus on progress, not perfection.</p>
+    
+                <h3 id="references">References</h3>
+                <ul>
+                    <li>Centers for Disease Control and Prevention (CDC). Healthy Weight, Nutrition, and Physical Activity.<br>
+                        <a href="https://www.cdc.gov/healthyweight/index.html" target="_blank">https://www.cdc.gov/healthyweight/index.html</a>
+                    </li>
+                    <li>U.S. Department of Agriculture (USDA). Dietary Guidelines for Americans, 2020–2025.<br>
+                        <a href="https://www.dietaryguidelines.gov/" target="_blank">https://www.dietaryguidelines.gov/</a>
+                    </li>
+                    <li>National Institutes of Health (NIH). Choosing Healthy Meals As You Get Older.<br>
+                        <a href="https://www.nia.nih.gov/health/choosing-healthy-meals-you-get-older" target="_blank">https://www.nia.nih.gov/health/choosing-healthy-meals-you-get-older</a>
+                    </li>
+                    <li>National Heart, Lung, and Blood Institute (NHLBI). Aim for a Healthy Weight: Guide to Behavior Change.<br>
+                        <a href="https://www.nhlbi.nih.gov/health/educational/lose_wt/behavior.htm" target="_blank">https://www.nhlbi.nih.gov/health/educational/lose_wt/behavior.htm</a>
+                    </li>
+                    <li>Centers for Disease Control and Prevention (CDC). How Many Calories Are Needed for Weight Loss?<br>
+                        <a href="https://www.cdc.gov/healthyweight/losing_weight/index.html" target="_blank">https://www.cdc.gov/healthyweight/losing_weight/index.html</a>
+                    </li>
+                    <li>U.S. Department of Health and Human Services (HHS). Physical Activity Guidelines for Americans, 2nd edition.<br>
+                        <a href="https://health.gov/paguidelines/second-edition/" target="_blank">https://health.gov/paguidelines/second-edition/</a>
+                    </li>
+                    <li>Centers for Disease Control and Prevention (CDC). How Much Physical Activity Do Adults Need?<br>
+                        <a href="https://www.cdc.gov/physicalactivity/basics/adults/index.htm" target="_blank">https://www.cdc.gov/physicalactivity/basics/adults/index.htm</a>
+                    </li>
+                    <li>National Institute of Diabetes and Digestive and Kidney Diseases (NIDDK). Changing Your Habits for Better Health.<br>
+                        <a href="https://www.niddk.nih.gov/health-information/weight-management/changing-habits" target="_blank">https://www.niddk.nih.gov/health-information/weight-management/changing-habits</a>
+                    </li>
+                    <li>Centers for Disease Control and Prevention (CDC). Healthy Eating for a Healthy Weight.<br>
+                        <a href="https://www.cdc.gov/healthyweight/healthy_eating/index.html" target="_blank">https://www.cdc.gov/healthyweight/healthy_eating/index.html</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

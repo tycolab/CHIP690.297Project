@@ -248,4 +248,79 @@ function updateChart() {
     });
 }
 
+document.getElementById("bmr-unit-system").addEventListener("change", function () {
+    const metricInputs = document.getElementById("bmr-metric-inputs");
+    const imperialInputs = document.getElementById("bmr-imperial-inputs");
+    if (this.value === "metric") {
+        metricInputs.classList.remove("hidden");
+        imperialInputs.classList.add("hidden");
+    } else {
+        metricInputs.classList.add("hidden");
+        imperialInputs.classList.remove("hidden");
+    }
+});
+
+function calculateBMR() {
+    const age = parseInt(document.getElementById("bmr-age").value);
+    const gender = document.getElementById("bmr-gender").value;
+    const unitSystem = document.getElementById("bmr-unit-system").value;
+    let heightCm, weightKg;
+
+    if (unitSystem === "metric") {
+        heightCm = parseFloat(document.getElementById("bmr-height-cm").value);
+        weightKg = parseFloat(document.getElementById("bmr-weight-kg").value);
+    } else {
+        const heightFt = parseFloat(document.getElementById("bmr-height-ft").value);
+        const heightIn = parseFloat(document.getElementById("bmr-height-in").value);
+        const weightLb = parseFloat(document.getElementById("bmr-weight-lb").value);
+
+        if (isNaN(heightFt) || isNaN(heightIn) || isNaN(weightLb)) {
+            alert("Please fill in all values.");
+            return;
+        }
+
+        const totalInches = (heightFt * 12) + heightIn;
+        heightCm = totalInches * 2.54;
+        weightKg = weightLb * 0.453592;
+    }
+
+    if (isNaN(age) || isNaN(heightCm) || isNaN(weightKg)) {
+        alert("Please fill in all values.");
+        return;
+    }
+
+    if (age <= 0 || heightCm <= 0 || weightKg <= 0) {
+        alert("Age, height, and weight must be greater than zero.");
+        return;
+    }
+
+    let bmr;
+    if (gender === "male") {
+        bmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age) + 5;
+    } else {
+        bmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age) - 161;
+    }
+
+    document.getElementById("bmr-result").innerText = `Your BMR is approximately ${bmr.toFixed(0)} calories/day.`;
+
+    const tdeeFactors = [
+        { activity: "Sedentary", description: "Little or no exercise", factor: 1.2 },
+        { activity: "Lightly active", description: "Light exercise 1–3 days/week", factor: 1.375 },
+        { activity: "Moderately active", description: "Moderate exercise 3–5 days/week", factor: 1.55 },
+        { activity: "Very active", description: "Hard exercise 6–7 days/week", factor: 1.725 },
+        { activity: "Super active", description: "Very hard exercise or physical job", factor: 1.9 }
+    ];
+    
+    const tbody = document.querySelector("#tdee-table tbody");
+    tbody.innerHTML = "";
+    
+    tdeeFactors.forEach(({ activity, description, factor }) => {
+        const calories = (bmr * factor).toFixed(0);
+        const row = `<tr><td>${activity}</td><td>${description}</td><td>${calories} calories/day</td></tr>`;
+        tbody.insertAdjacentHTML('beforeend', row);
+    });
+    
+    document.getElementById("tdee-table-container").classList.remove("hidden");
+}
+
 openTab('calculator');
