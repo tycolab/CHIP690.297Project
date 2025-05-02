@@ -116,23 +116,24 @@ function updateChart() {
 
     if (sorted.length === 0) return;
 
-    const allDates = getAllDatesBetween(sorted[0].date, sorted[sorted.length - 1].date);
-
-    const weightMap = new Map(sorted.map(r => [r.date, weightUnit === 'imperial' ? r.weightKg / 0.453592 : r.weightKg]));
-    const bmiMap = new Map(sorted.map(r => [r.date, r.bmi]));
-
-    const weights = allDates.map(d => weightMap.has(d) ? weightMap.get(d) : null);
-    const bmis = allDates.map(d => bmiMap.has(d) ? bmiMap.get(d) : null);
+    const weightPoints = sorted.map(r => ({
+        x: r.date,
+        y: weightUnit === 'imperial' ? r.weightKg / 0.453592 : r.weightKg
+    }));
+    
+    const bmiPoints = sorted.map(r => ({
+        x: r.date,
+        y: r.bmi
+    }));
 
     if (weightChart) weightChart.destroy();
     weightChart = new Chart(document.getElementById("weight-chart"), {
         type: 'line',
         data: {
-            labels: allDates,
             datasets: [
                 {
                     label: `Weight`,
-                    data: weights,
+                    data: weightPoints,
                     borderColor: 'gray',
                     spanGaps: true,
                     tension: 0.3
@@ -150,13 +151,27 @@ function updateChart() {
                     displayColors: false,
                     callbacks: {
                         label: function(context) {
-                            return `Weight: ${context.raw.toFixed(1)} ${weightUnit === 'imperial' ? 'lb' : 'kg'}`;
+                            const weight = context.raw.y;
+                            return `Weight: ${weight.toFixed(1)} ${weightUnit === 'imperial' ? 'lb' : 'kg'}`;
                         }
                     }
                 }
             },
             scales: {
-                x: { title: { display: true, text: 'Date' } },
+                x: {
+                    type: 'time',
+                    time: {
+                        unit: 'day',
+                        tooltipFormat: 'yyyy-MM-dd',
+                        displayFormats: {
+                            day: 'MMM d'
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Date'
+                    }
+                },
                 y: { title: { display: true, text: 'Weight' } }
             }
         }
@@ -178,11 +193,10 @@ function updateChart() {
     bmiChart = new Chart(document.getElementById("bmi-chart"), {
         type: 'line',
         data: {
-            labels: allDates,
             datasets: [
                 {
                     label: 'BMI',
-                    data: bmis,
+                    data: bmiPoints,
                     borderColor: 'gray',
                     backgroundColor: 'transparent',
                     spanGaps: true,
@@ -213,7 +227,7 @@ function updateChart() {
                     displayColors: false,
                     callbacks: {
                         label: function(context) {
-                            const bmi = context.raw;
+                            const bmi = context.raw.y;
                             let category = '';
                             if (bmiStandard === "asia") {
                                 if (bmi < 18.5) category = "Underweight";
@@ -233,7 +247,20 @@ function updateChart() {
                 annotation: { annotations }
             },
             scales: {
-                x: { title: { display: true, text: 'Date' } },
+                x: {
+                    type: 'time',
+                    time: {
+                        unit: 'day',
+                        tooltipFormat: 'yyyy-MM-dd',
+                        displayFormats: {
+                            day: 'MMM d'
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Date'
+                    }
+                },
                 y: {
                     title: { display: true, text: 'BMI' },
                     min: 10,
